@@ -2,6 +2,8 @@
 // Created by ashley on 18/2/20.
 //
 
+#include <QtCore/QString>
+#include <QObject>
 #include "Cliente.h"
 
 
@@ -27,7 +29,7 @@ bool Cliente::conectar() {
 }
 
 
-void *Cliente::controlador(void *obj) {
+void * Cliente::controlador(void *obj) {
     Cliente *padre = (Cliente *) obj;
 
     while (true) {
@@ -43,8 +45,9 @@ void *Cliente::controlador(void *obj) {
             if (bytes < 10)
                 break;
         }
-        cout << "Servidor:" << mensaje << endl;
-        //emit padre->NewMensaje(QString::fromStdString(mensaje));
+        //cout << "Servidor:" << mensaje << endl;
+        //msj = mensaje.c_str();
+        emit padre->NewMensaje(QString::fromStdString(mensaje));
     }
     close(padre->descriptor);
     pthread_exit(NULL);
@@ -54,3 +57,5 @@ void *Cliente::controlador(void *obj) {
 void Cliente::setMensaje(const char *msn) {
     cout << "" << send(descriptor, msn, strlen(msn), 0) << endl;
 }
+
+

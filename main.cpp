@@ -1,16 +1,16 @@
 #include <iostream>
-#include "cliente/Cliente.h"
+#include <QApplication>
+#include "Window.h"
 
- Cliente *client;
+using namespace std;
+Window * window;
 
-int main() {
-    client = new Cliente;
-    client->conectar();
+int main(int argc, char *argv[]) {
 
+    QApplication a(argc, argv);
+    window = new Window();
+    window->show();
 
-    while (1) {
-        string mensaje;
-        cin >> mensaje;
-        client->setMensaje(mensaje.c_str());
-    }
+    return a.exec();
+
 }
